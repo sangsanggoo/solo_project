@@ -17,7 +17,8 @@ public class UserController {
 	private final UserSerivce userSerivce;
 	@GetMapping("/test")
 	public ResponseEntity<?> test(@RequestParam Map<Object,String > requestmap) {
-		userSerivce.addUser();
+//		userSerivce.addUser();
+		System.out.println(requestmap);
 		return null;
 	}
 }

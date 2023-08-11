@@ -4,7 +4,7 @@ import axios from "axios";
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { CgPassword } from "react-icons/cg";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 const Container = css`
   display: flex;
   align-items: center;
@@ -112,19 +112,13 @@ const Title = () => {
     setloginInputContents({ ...loginInputContents, [name]: value });
     console.log(loginInputContents);
   };
-  const loginClick = useQuery(
-    ["loginClick"],
-    async () => {
-      const response = await axios.get("http://localhost:8080/test", loginInputContents);
-      return response;
-    },
-    {
-      onSuccess: (response) => {
-        console.log(response);
-        return;
-      },
-    }
-  );
+  const loginClick = async () => {
+    const option = {
+      params: loginInputContents,
+    };
+    const response = await axios.get("http://localhost:8080/test", option);
+    return response;
+  };
 
   return (
     <div>
@@ -155,7 +149,7 @@ const Title = () => {
                   ></input>
                 </div>
                 <div css={loginButtonContainer}>
-                  <button css={loginButton} onClick={() => loginClick()}>
+                  <button css={loginButton} onClick={loginClick}>
                     로그인
                   </button>
                 </div>
