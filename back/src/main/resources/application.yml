@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://soloproject.ctgziet2cuq2.ap-northeast-2.rds.amazonaws.com:3306/soloproject
+    username: soloproject
+    password: ba619161
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+        
