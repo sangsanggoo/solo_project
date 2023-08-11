@@ -1,7 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import axios from "axios";
+import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { CgPassword } from "react-icons/cg";
+import { useQuery } from "react-query";
 const Container = css`
   display: flex;
   align-items: center;
@@ -103,7 +106,26 @@ const footContents = css`
   height: 100%;
 `;
 const Title = () => {
-  const 
+  const [loginInputContents, setloginInputContents] = useState({ id: "", password: "" });
+  const loginChangeHandle = (e) => {
+    const { name, value } = e.target;
+    setloginInputContents({ ...loginInputContents, [name]: value });
+    console.log(loginInputContents);
+  };
+  const loginClick = useQuery(
+    ["loginClick"],
+    async () => {
+      const response = await axios.get("http://localhost:8080/test", loginInputContents);
+      return response;
+    },
+    {
+      onSuccess: (response) => {
+        console.log(response);
+        return;
+      },
+    }
+  );
+
   return (
     <div>
       <div css={Container}>
@@ -114,14 +136,28 @@ const Title = () => {
               <div css={loginContainer}>
                 <div css={inputContainer}>
                   <BsPersonCircle css={loginIcon} />
-                  <input css={loginInput} type="text"  placeholder="아이디 입력"></input>
+                  <input
+                    css={loginInput}
+                    type="text"
+                    name="id"
+                    onChange={loginChangeHandle}
+                    placeholder="아이디 입력"
+                  ></input>
                 </div>
                 <div css={inputContainer}>
                   <CgPassword css={passwordIcon} />
-                  <input css={loginInput} type="password" placeholder="비밀번호 입력"></input>
+                  <input
+                    css={loginInput}
+                    type="password"
+                    onChange={loginChangeHandle}
+                    name="password"
+                    placeholder="비밀번호 입력"
+                  ></input>
                 </div>
                 <div css={loginButtonContainer}>
-                  <button css={loginButton}>로그인</button>
+                  <button css={loginButton} onClick={() => loginClick()}>
+                    로그인
+                  </button>
                 </div>
               </div>
             </div>
