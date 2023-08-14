@@ -150,7 +150,7 @@ const Title = () => {
                 </div>
                 <div css={loginButtonContainer}>
                   <button css={loginButton} onClick={loginClick}>
-                    로그인
+                    박지민
                   </button>
                 </div>
               </div>
