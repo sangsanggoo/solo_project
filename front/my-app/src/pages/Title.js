@@ -5,6 +5,9 @@ import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { CgPassword } from "react-icons/cg";
 import { useMutation, useQuery } from "react-query";
+import Signin from "./Signin";
+import { useRecoilState } from "recoil";
+import { signinOpenState } from "../atoms/signinAtom";
 const Container = css`
   display: flex;
   align-items: center;
@@ -12,7 +15,6 @@ const Container = css`
   height: 100%;
   width: 100%;
   background-color: white;
-  margin: 50px;
 `;
 
 const mainContainer = css`
@@ -91,6 +93,42 @@ const loginButton = css`
     background-color: #fafafa;
   }
 `;
+const signinContainer = css`
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 300px;
+`;
+const signinText = css`
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  width: 100px;
+  padding-left: 5px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  cursor: pointer;
+  &:hover {
+    background-color: skyblue;
+  }
+  &:active {
+    background-color: gray;
+  }
+`;
+const forgotText = css`
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  width: 160px;
+  padding: 13px 0px;
+  cursor: pointer;
+  &:hover {
+    background-color: skyblue;
+  }
+  &:active {
+    background-color: gray;
+  }
+`;
 const mainContents = css`
   display: flex;
   width: 100%;
@@ -107,6 +145,7 @@ const footContents = css`
 `;
 const Title = () => {
   const [loginInputContents, setloginInputContents] = useState({ id: "", password: "" });
+  const [openSignin, setOpenSignin] = useRecoilState(signinOpenState);
   const loginChangeHandle = (e) => {
     const { name, value } = e.target;
     setloginInputContents({ ...loginInputContents, [name]: value });
@@ -119,50 +158,62 @@ const Title = () => {
     const response = await axios.get("http://localhost:8080/test", option);
     return response;
   };
-
+  const signinClickHandle = () => {
+    setOpenSignin(true);
+  };
   return (
-    <div>
-      <div css={Container}>
-        <div css={mainContainer}>
-          <div css={ContainerHeader}>상구네 카페</div>
-          <div css={Containerbody}>
-            <div css={sideContainer}>
-              <div css={loginContainer}>
-                <div css={inputContainer}>
-                  <BsPersonCircle css={loginIcon} />
-                  <input
-                    css={loginInput}
-                    type="text"
-                    name="id"
-                    onChange={loginChangeHandle}
-                    placeholder="아이디 입력"
-                  ></input>
-                </div>
-                <div css={inputContainer}>
-                  <CgPassword css={passwordIcon} />
-                  <input
-                    css={loginInput}
-                    type="password"
-                    onChange={loginChangeHandle}
-                    name="password"
-                    placeholder="비밀번호 입력"
-                  ></input>
-                </div>
-                <div css={loginButtonContainer}>
-                  <button css={loginButton} onClick={loginClick}>
-                    박지민
-                  </button>
+    <>
+      <div>
+        {openSignin ? <Signin /> : ""}
+
+        <div css={Container}>
+          <div css={mainContainer}>
+            <div css={ContainerHeader}>상구네 카페</div>
+            <div css={Containerbody}>
+              <div css={sideContainer}>
+                <div css={loginContainer}>
+                  <div css={inputContainer}>
+                    <BsPersonCircle css={loginIcon} />
+                    <input
+                      css={loginInput}
+                      type="text"
+                      name="id"
+                      onChange={loginChangeHandle}
+                      placeholder="아이디 입력"
+                    ></input>
+                  </div>
+                  <div css={inputContainer}>
+                    <CgPassword css={passwordIcon} />
+                    <input
+                      css={loginInput}
+                      type="password"
+                      onChange={loginChangeHandle}
+                      name="password"
+                      placeholder="비밀번호 입력"
+                    ></input>
+                  </div>
+                  <div css={loginButtonContainer}>
+                    <button css={loginButton} onClick={loginClick}>
+                      로그인
+                    </button>
+                  </div>
+                  <div css={signinContainer}>
+                    <a css={signinText} onClick={signinClickHandle}>
+                      회원가입
+                    </a>
+                    <a css={forgotText}>아이디/비밀번호찾기</a>
+                  </div>
                 </div>
               </div>
+              <div css={mainContents}>글 보이는곳</div>
             </div>
-            <div css={mainContents}>글 보이는곳</div>
-          </div>
-          <div css={Containerfooter}>
-            <div css={footContents}>블로그 밑에</div>
+            <div css={Containerfooter}>
+              <div css={footContents}>블로그 밑에</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

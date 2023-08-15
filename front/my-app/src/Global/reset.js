@@ -117,12 +117,12 @@ export const Reset = css`
     line-height: 1;
   }
   #root {
-    /* position: relative;
-        margin: 10px auto;
-        border: 3px solid #dbdbdb;
-        border-radius: 10px;
-        padding: 10px;
-        overflow: hidden; */
+    position: relative;
+    margin: 10px auto;
+    border: 3px solid #dbdbdb;
+    border-radius: 10px;
+    padding: 10px;
+    overflow: hidden;
     height: auto;
   }
   ol,
