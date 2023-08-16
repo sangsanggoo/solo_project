@@ -4,10 +4,9 @@ import axios from "axios";
 import { useState } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { CgPassword } from "react-icons/cg";
-import { useMutation, useQuery } from "react-query";
-import Signin from "./Signin";
 import { useRecoilState } from "recoil";
-import { signinOpenState } from "../atoms/signinAtom";
+import { signupOpenState } from "../atoms/signupAtom";
+import Signup from "./Signup";
 const Container = css`
   display: flex;
   align-items: center;
@@ -93,13 +92,13 @@ const loginButton = css`
     background-color: #fafafa;
   }
 `;
-const signinContainer = css`
+const signupContainer = css`
   display: flex;
   justify-content: center;
   height: 50px;
   width: 300px;
 `;
-const signinText = css`
+const signupText = css`
   display: flex;
   justify-content: center;
   height: 20px;
@@ -145,7 +144,7 @@ const footContents = css`
 `;
 const Title = () => {
   const [loginInputContents, setloginInputContents] = useState({ id: "", password: "" });
-  const [openSignin, setOpenSignin] = useRecoilState(signinOpenState);
+  const [openSignin, setOpenSignin] = useRecoilState(signupOpenState);
   const loginChangeHandle = (e) => {
     const { name, value } = e.target;
     setloginInputContents({ ...loginInputContents, [name]: value });
@@ -164,7 +163,7 @@ const Title = () => {
   return (
     <>
       <div>
-        {openSignin ? <Signin /> : ""}
+        {openSignin ? <Signup /> : ""}
 
         <div css={Container}>
           <div css={mainContainer}>
@@ -197,8 +196,8 @@ const Title = () => {
                       로그인
                     </button>
                   </div>
-                  <div css={signinContainer}>
-                    <a css={signinText} onClick={signinClickHandle}>
+                  <div css={signupContainer}>
+                    <a css={signupText} onClick={signinClickHandle}>
                       회원가입
                     </a>
                     <a css={forgotText}>아이디/비밀번호찾기</a>

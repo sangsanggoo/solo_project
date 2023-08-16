@@ -13,12 +13,13 @@ import solo_project.Service.LoginService;
 @RequiredArgsConstructor
 public class LoginController {
 	private final LoginService loginService;
-	@PostMapping("/test")
-	public ResponseEntity<?> test(@RequestBody SignupReqDto signupReqDto) {
-		loginService.signup(signupReqDto);
+	@PostMapping("/signup")
+	public ResponseEntity<?> signup(@RequestBody SignupReqDto signupReqDto) {
+//		loginService.signup(signupReqDto);
+		System.out.println(signupReqDto);
 		System.out.println("ㅇㅇ");
 		return null;
 	}
-	
+
 	
 }
