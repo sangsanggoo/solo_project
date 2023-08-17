@@ -8,8 +8,15 @@
 		<result property="password" column="user_password"/>
 		<result property="userRole" column="user_role"/>
 	</resultMap>
-	<insert id="signup" parameterType="solo_project.Entity.User">
+	<insert id="signup" parameterType="solo_project.Entity.User" >
 		insert into user_tb
 		values (0 , #{name},#{email},#{password},1);
 	</insert>
+	<select id="findByEmail" resultMap="userMap">
+		select 
+		user_email
+		from user_tb
+		where
+		user_email = #{email};
+	</select>
 </mapper>

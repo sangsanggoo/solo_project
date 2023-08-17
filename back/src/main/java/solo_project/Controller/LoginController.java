@@ -9,17 +9,19 @@ import lombok.RequiredArgsConstructor;
 import solo_project.Dto.ReqDto.SignupReqDto;
 import solo_project.Service.LoginService;
 
-@RestController
 @RequiredArgsConstructor
+@RestController
 public class LoginController {
 	private final LoginService loginService;
 	@PostMapping("/signup")
 	public ResponseEntity<?> signup(@RequestBody SignupReqDto signupReqDto) {
-//		loginService.signup(signupReqDto);
-		System.out.println(signupReqDto);
-		System.out.println("ㅇㅇ");
+		loginService.signup(signupReqDto);
 		return null;
 	}
-
-	
+	@PostMapping("/sendcode")
+	public ResponseEntity<?> sendCode(@RequestBody SignupReqDto signupReqDto) {
+//		System.out.println(signupReqDto);
+		System.out.println(loginService.sendCode(signupReqDto));
+		return ResponseEntity.ok().body(loginService.sendCode(signupReqDto));
+	}
 }

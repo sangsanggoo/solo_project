@@ -1,4 +1,12 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: bagume619@gmail.com
+    password: ixekzqmgromewdld
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
   datasource:
     url: jdbc:mysql://admin.ctgziet2cuq2.ap-northeast-2.rds.amazonaws.com:3306/solo_project
     username: admin
